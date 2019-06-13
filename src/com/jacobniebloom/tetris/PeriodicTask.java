@@ -19,7 +19,7 @@ public class PeriodicTask extends TimerTask {
         }
         //Periodically calling the moveDown method so that the piece
         //keeps moving down automatically
-        Test.myBoard.movePiece(Board.piece, 1, true);
+        Test.myBoard.movePiece(Board.piece, MoveType.Down, true);
         Game.timer.schedule(new PeriodicTask(), delay);
     }
 }

@@ -12,7 +12,7 @@ public class Board extends JPanel {
     static Color[][] boardColors;
     static char letter;
     private static char nextLetter;
-    static Pieces piece;
+    static Piece piece;
     static JLabel score;
     static int scoreInInt = 0;
     static boolean isGameOn = true;
@@ -55,8 +55,8 @@ public class Board extends JPanel {
         letter = letters[util.randInt()];
         nextLetter = letters[util.randInt()];
         //The number is associated with a spcific shape or piece
-        //First instance of the com.jacobniebloom.tetris.Pieces class is created
-        piece = new Pieces(letter);
+        //First instance of the com.jacobniebloom.tetris.Piece class is created
+        piece = new Piece(letter);
         //Initial location of the piece on the baord is set
         piece.x = 4;
         piece.y = 0;
@@ -113,7 +113,7 @@ public class Board extends JPanel {
             piece.drawMe = false;
             utilities util = new utilities();
             nextLetter = letters[util.randInt()];
-            piece = new Pieces(letter);
+            piece = new Piece(letter);
             piece.x = 4;
             piece.y = 0;
             add(piece);
@@ -124,15 +124,15 @@ public class Board extends JPanel {
     //Switches pieces when the user released the held piece
     //by hitting the X key
     void switchPieces(char letter) {
-        piece = new Pieces(letter);
+        piece = new Piece(letter);
     }
 
     //Calls the movePiece method
-    private void add(Pieces piece) {
-        movePiece(piece, 4, true);
+    private void add(Piece piece) {
+        movePiece(piece, MoveType.Nope, true);
     }
 
-    void movePiece(Pieces piece, int x, boolean withPaint) {
+    void movePiece(Piece piece, MoveType x, boolean withPaint) {
         //Wipes the the existing location of the piece
         for (int i = 0; i < piece.getPieceArray().length; i++)
             for (int j = 0; j < piece.getPieceArray()[i].length; j++)
@@ -141,11 +141,11 @@ public class Board extends JPanel {
                             Color.blue);
                 }
         //Moves the piece;
-        if (x == 0)
+        if (x == MoveType.Left)
             piece.moveLeft();
-        else if (x == 1) {
+        else if (x == MoveType.Down) {
             piece.moveDown(withPaint);
-        } else if (x == 2)
+        } else if (x == MoveType.Right)
             piece.moveRight();
         //Draw the piece at the new location;
         if (piece.drawMe) {

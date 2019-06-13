@@ -2,7 +2,7 @@ package com.jacobniebloom.tetris;
 
 import java.awt.*;
 
-class Pieces {
+class Piece {
     static int x = 4;
     static int y = 0;
     //Declaring instance variables
@@ -13,7 +13,7 @@ class Pieces {
     private boolean[][] pieceArray;
 
     //Constructor
-    Pieces(char a) {
+    Piece(char a) {
         //Creating boolean arrays for each piece
         if (a == 'Z') {
             pieceArray = new boolean[][]{{true, true, false}, {false, true, true}};
@@ -99,8 +99,8 @@ class Pieces {
     //Called when the user hits the space key
     void moveAllDown() {
         for (int i = 0; i < 20; i++)
-            Test.myBoard.movePiece(Board.piece, 1, false);
-        Test.myBoard.movePiece(Board.piece, 1, true);
+            Test.myBoard.movePiece(Board.piece, MoveType.Down, false);
+        Test.myBoard.movePiece(Board.piece, MoveType.Down, true);
     }
 
     // Rotates the pieces
@@ -127,12 +127,12 @@ class Pieces {
             columnForNew--;
         }
         drawMe = false;
-        Test.myBoard.movePiece(Board.piece, 4, true);
+        Test.myBoard.movePiece(Board.piece, MoveType.Nope, true);
         pieceArray = newPieceArray;
 
         if (outOfBounds(false))
             pieceArray = tempArray;
-        Test.myBoard.movePiece(Board.piece, 4, true);
+        Test.myBoard.movePiece(Board.piece, MoveType.Nope, true);
     }
 
     //Checks if the piece is out of bounds
@@ -184,7 +184,7 @@ class Pieces {
     //Once a piece gets settled,the location of that piece gets appropriately colored
     //and a new piece is introduced at the top
     //This creates an illusion that multiple pieces are being generated but that does not happen
-    //There is just one instance of the com.jacobniebloom.tetris.Pieces class
+    //There is just one instance of the com.jacobniebloom.tetris.Piece class
     //The settled pieces on the board are just colors on the board
     private void paint(boolean withPaint) {
         if (withPaint) {

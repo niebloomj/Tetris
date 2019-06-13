@@ -21,13 +21,13 @@ public class KeyListener extends KeyAdapter {
         //Right key calls the moveRight method
         if (Board.isGameOn) {
             if (code == KeyEvent.VK_RIGHT)
-                Test.myBoard.movePiece(Board.piece, 2, true);
+                Test.myBoard.movePiece(Board.piece, MoveType.Right, true);
                 //Down key calls the moveDown method
             else if (code == KeyEvent.VK_DOWN)
-                Test.myBoard.movePiece(Board.piece, 1, true);
+                Test.myBoard.movePiece(Board.piece, MoveType.Down, true);
                 //Left key calls the moveLeft method
             else if (code == KeyEvent.VK_LEFT)
-                Test.myBoard.movePiece(Board.piece, 0, true);
+                Test.myBoard.movePiece(Board.piece, MoveType.Left, true);
                 //Space key calls the moveAllDown method
             else if (code == KeyEvent.VK_SPACE)
                 Board.piece.moveAllDown();
@@ -36,7 +36,7 @@ public class KeyListener extends KeyAdapter {
                 if (!isHeld) {
                     temp = Board.getLetter();
                     Board.piece.drawMe = false;
-                    Test.myBoard.movePiece(Board.piece, 3, true);
+                    Test.myBoard.movePiece(Board.piece, MoveType.Nope, true);
                     Test.myBoard.introduceNewPiece();
                     isHeld = true;
                     isPressed = true;
@@ -48,9 +48,9 @@ public class KeyListener extends KeyAdapter {
                 if (isHeld && !isPressed) {
                     Board.letter = temp;
                     Board.piece.drawMe = false;
-                    Test.myBoard.movePiece(Board.piece, 3, true);
+                    Test.myBoard.movePiece(Board.piece, MoveType.Nope, true);
                     Test.myBoard.switchPieces(temp);
-                    Test.myBoard.movePiece(Board.piece, 3, true);
+                    Test.myBoard.movePiece(Board.piece, MoveType.Nope, true);
                     //isCurrentTurn = 0;
                     isHeld = false;
                 }
@@ -68,8 +68,8 @@ public class KeyListener extends KeyAdapter {
             for (int i = 0; i < 18; i++)
                 for (int j = 0; j < 10; j++)
                     Board.boardColors[i][j] = Color.blue;
-            Pieces.x = 4;
-            Pieces.y = 0;
+            Piece.x = 4;
+            Piece.y = 0;
             Board.score.setText("0/200");
             Board.scoreInInt = 0;
             Board.isGameOn = true;
