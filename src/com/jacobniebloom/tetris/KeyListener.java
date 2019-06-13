@@ -10,10 +10,7 @@ public class KeyListener extends KeyAdapter {
     static char temp;
     static boolean isPressed = false;
     private static boolean isHeld = false;
-    //static boolean isReleased = false;
-    //static int isCurrentTurn = 0;
 
-    //Overriding an existing method
     @Override
     //This method is called when the user presses some key
     public void keyPressed(KeyEvent e) {
@@ -34,7 +31,7 @@ public class KeyListener extends KeyAdapter {
                 // Z key holds or saves the current piece
             else if (code == KeyEvent.VK_Z) {
                 if (!isHeld) {
-                    temp = Board.getLetter();
+                    temp = Board.letter;
                     Board.piece.drawMe = false;
                     Test.myBoard.movePiece(Board.piece, MoveType.Nope, true);
                     Test.myBoard.introduceNewPiece();
