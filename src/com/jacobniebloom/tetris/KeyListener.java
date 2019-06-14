@@ -62,8 +62,8 @@ public class KeyListener extends KeyAdapter {
             Test.myBoard.remove(Board.gameOver1);
             Test.myBoard.remove(Board.gameOver2);
             Test.myBoard.remove(Board.gameOver3);
-            for (int i = 0; i < 18; i++)
-                for (int j = 0; j < 10; j++)
+            for (int i = 0; i < Board.height; i++)
+                for (int j = 0; j < Board.width; j++)
                     Board.boardColors[i][j] = Color.blue;
             Piece.x = 4;
             Piece.y = 0;

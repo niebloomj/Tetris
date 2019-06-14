@@ -59,22 +59,12 @@ class Piece {
         return color;
     }
 
-    //Gets value of X that controls the location of the piece on the board
-    int getX() {
-        return x;
-    }
-
-    //Gets value of Y that controls the location of the piece on the board
-    int getY() {
-        return y;
-    }
-
     //Moves the piece down
     void moveDown(boolean withPaint) {
         y++;
         //Checks if the piece cis within limits
         if (outOfBounds(withPaint) && drawMe) {
-            if (y == 18) y = 1;
+            if (y == Board.height) y = 1;
             else y--;
         }
     }
@@ -98,7 +88,7 @@ class Piece {
 
     //Called when the user hits the space key
     void moveAllDown() {
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i <= Board.height; i++)
             Test.myBoard.movePiece(Board.piece, MoveType.Down, false);
         Test.myBoard.movePiece(Board.piece, MoveType.Down, true);
     }
@@ -191,7 +181,7 @@ class Piece {
             for (int i = 0; i < getPieceArray().length; i++)
                 for (int j = 0; j < getPieceArray()[i].length; j++)
                     if (getPieceArray()[i][j])
-                        Test.myBoard.setColor(i + getY() - 1, j + getX(), getColor());
+                        Test.myBoard.setColor(i + Piece.y - 1, j + Piece.x, getColor());
             for (int i = 0; i < 4; i++)
                 Test.myBoard.deleteFullRows();
             if (Board.isGameOn)

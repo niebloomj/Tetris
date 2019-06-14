@@ -2,6 +2,7 @@ package com.jacobniebloom.tetris;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
 //Creates a Board class that extends JPanel
 public class Board extends JPanel {
@@ -23,18 +24,18 @@ public class Board extends JPanel {
     Board() {
         //Creating and adding JLabels to the Panel
         JLabel scoreLabel = new JLabel();
-        scoreLabel.setText("SCORE :");
-        score = new JLabel();
-        score.setText("0/200");
         JLabel myName = new JLabel(" Jacob Niebloom  ");
-        myName.setFont(myName.getFont().deriveFont(15.0f));
         JLabel nextLabel = new JLabel();
+        score = new JLabel();
+        scoreLabel.setText("SCORE :");
+        score.setText("0/200");
+        myName.setFont(myName.getFont().deriveFont(15.0f));
         nextLabel.setText("Next piece and held piece:");
         nextLabel.setFont(nextLabel.getFont().deriveFont(18.0f));
         scoreLabel.setFont(scoreLabel.getFont().deriveFont(30.0f));
+        score.setFont(scoreLabel.getFont().deriveFont(30.0f));
         add(scoreLabel);
         add(score);
-        score.setFont(scoreLabel.getFont().deriveFont(30.0f));
         add(myName);
         add(nextLabel);
         //Setting the characteristics of the Panel
@@ -44,16 +45,15 @@ public class Board extends JPanel {
         requestFocusInWindow(true);
         setBackground(Color.orange);
         //Creating an array of Colors
-        boardColors = new Color[18][10];
+        boardColors = new Color[height][width];
         //Initializing all the elements in the colors array to color blue;
-        for (int i = 0; i < 18; i++)
-            for (int j = 0; j < 10; j++)
+        for (int i = 0; i < height; i++)
+            for (int j = 0; j < width; j++)
                 boardColors[i][j] = Color.blue;
         //Creating an instance of com.jacobniebloom.tetris.utilities class
-        utilities util = new utilities();
         //Randomly generates a number between 0 an 6
-        Board.letter = letters[util.randInt()];
-        Board.nextLetter = letters[util.randInt()];
+        Board.letter = letters[new Random().nextInt(letters.length)];
+        Board.nextLetter = letters[new Random().nextInt(letters.length)];
         //The number is associated with a spcific shape or piece
         //First instance of the com.jacobniebloom.tetris.Piece class is created
         Board.piece = new Piece(Board.letter);
@@ -103,8 +103,7 @@ public class Board extends JPanel {
         if (isGameOn) {
             letter = nextLetter;
             piece.drawMe = false;
-            utilities util = new utilities();
-            nextLetter = letters[util.randInt()];
+            nextLetter = letters[new Random().nextInt(letters.length)];
             Board.piece = new Piece(letter);
             Piece.x = 4;
             Piece.y = 0;
@@ -129,7 +128,7 @@ public class Board extends JPanel {
         for (int i = 0; i < piece.getPieceArray().length; i++)
             for (int j = 0; j < piece.getPieceArray()[i].length; j++)
                 if (piece.getPieceArray()[i][j]) {
-                    setColor(i + piece.getY(), j + piece.getX(),
+                    setColor(i + Piece.y, j + Piece.x,
                             Color.blue);
                 }
         //Moves the piece;
@@ -144,7 +143,7 @@ public class Board extends JPanel {
             for (int i = 0; i < piece.getPieceArray().length; i++)
                 for (int j = 0; j < piece.getPieceArray()[i].length; j++)
                     if (piece.getPieceArray()[i][j]) {
-                        setColor(i + piece.getY(), j + piece.getX(),
+                        setColor(i + Piece.y, j + Piece.x,
                                 piece.getColor());
                     }
         }
@@ -245,8 +244,10 @@ public class Board extends JPanel {
         for (i = 17; i >= 0; i--) {
             boolean isRowFull = true;
             for (int j = 0; j < 10; j++)
-                if (boardColors[i][j] == Color.blue)
+                if (boardColors[i][j] == Color.blue) {
                     isRowFull = false;
+                    break;
+                }
             if (isRowFull) {
                 for (col = 0; col < 10; col++)
                     boardColors[i][col] = Color.blue;
